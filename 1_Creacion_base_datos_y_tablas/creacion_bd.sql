@@ -4,7 +4,7 @@ USE estadisticas_futbol_2023;
 ## creacion tablas 
 CREATE TABLE datos_partidos (
     id_teams INT AUTO_INCREMENT PRIMARY KEY,
-    timestamp datetime,
+    timestamp int,
     date_GMT datetime,
     country VARCHAR(50),
     home_team_name VARCHAR(50),
@@ -23,7 +23,7 @@ CREATE TABLE datos_partidos (
     away_team_fouls INT,
     home_team_possession FLOAT,
     away_team_possession FLOAT,
-    stadium_name VARCHAR(50)
+    stadium_name VARCHAR(100)
 );
 
 
@@ -82,29 +82,6 @@ CREATE TABLE datos_equipos (
     team_name VARCHAR(50),
     common_name VARCHAR(50),
     country VARCHAR(50)
-);
-
-CREATE TABLE Datos_estadio (
-    id_estadio INT AUTO_INCREMENT PRIMARY KEY,
-    stadium_name VARCHAR(50),
-    country_name VARCHAR(50)
-);
-
-
-
-
-CREATE TABLE Tabla_campeonato (
-    id_campeonato INT AUTO_INCREMENT PRIMARY KEY,
-    common_name VARCHAR(50),
-    country VARCHAR(50),
-    puntos_tot INT,
-    part_jugados INT,
-    part_ganados INT,
-    part_empatados INT,
-    part_perdidos INT,
-    goles_a_favor INT,
-    goles_en_contra INT,
-    dif_gol INT
 );
 
 CREATE TABLE paises (
