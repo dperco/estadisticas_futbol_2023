@@ -1,0 +1,105 @@
+team_name;common_name;season;country;minutes_per_goal_scored_overall;minutes_per_goal_conceded_overall;shots_per_match_overall;fouls_by_this_team_overall;offsides_total_overall
+CA Tigre;Tigre;2023;Argentina;93;82;14.17;302;95
+CA Belgrano de Cordoba;Belgrano;2023;Argentina;108;90;10.67;332;103
+CA Union de Santa Fe;Union Santa Fe;2023;Argentina;113;97;10.9;395;96
+Club Atletico Velez Sarsfield;Velez Sarsfield;2023;Argentina;97;93;9.43;375;86
+CA Talleres de Cordoba;Talleres Cordoba;2023;Argentina;57;103;12.07;351;97
+CSD Defensa y Justicia;Defensa y Justicia;2023;Argentina;70;108;11.03;324;114
+CA Independiente;Independiente;2023;Argentina;100;77;9.9;432;90
+CA Lanus;Lanus;2023;Argentina;68;87;11.27;377;82
+CA Boca Juniors;Boca Juniors;2023;Argentina;75;100;10.37;340;82
+CA Banfield;Banfield;2023;Argentina;108;80;10.76;363;81
+Colon de Santa Fe;Colon;2023;Argentina;113;77;10.1;389;83
+Gimnasia y Esgrima La Plata;Gimnasia La Plata;2023;Argentina;108;60;11.5;334;110
+Estudiantes de La Plata;Estudiantes;2023;Argentina;71;87;12.5;345;79
+CA Rosario Central;Rosario Central;2023;Argentina;71;84;11.93;341;85
+CA San Lorenzo de Almagro;San Lorenzo;2023;Argentina;100;170;10.13;385;111
+Newell's Old Boys;Newell's Old Boys;2023;Argentina;97;108;10.27;337;73
+Arsenal de Sarandi;Arsenal de Sarandi;2023;Argentina;123;69;9.03;380;90
+Racing Club de Avellaneda;Racing Club;2023;Argentina;66;71;11.27;361;127
+CA River Plate;River Plate;2023;Argentina;47;103;13.77;342;107
+CA Tucuman;Atletico Tucuman;2023;Argentina;100;93;11.2;365;96
+Godoy Cruz Antonio Tomba;Godoy Cruz;2023;Argentina;65;77;12.38;368;102
+CA Huracan;Huracan;2023;Argentina;117;84;10.5;390;75
+Argentinos Juniors;Argentinos Juniors;2023;Argentina;71;93;12.87;366;103
+CA Central Cordoba de Santiago del Estero;Central Cordoba SdE;2023;Argentina;117;77;11.07;279;102
+CA Platense;Platense;2023;Argentina;93;77;10.4;381;105
+CA Barracas Central;Barracas Central;2023;Argentina;97;73;8.67;332;89
+CA Sarmiento;Sarmiento;2023;Argentina;100;100;10.47;387;82
+Instituto AC Cordoba;Instituto;2023;Argentina;108;75;10.93;351;81
+Ferroviaria Futebol;Ferroviaria;2023;Brazil;38;90;12.88;0;0
+Sport Club Corinthians Paulista;Corinthians;2023;Brazil;27;155;16.4;0;0
+Clube de Regatas do Flamengo Women;Flamengo W;2023;Brazil;61;73;13.53;0;0
+SE Kindermann;Kindermann;2023;Brazil;54;41;10.2;0;0
+Santos FC;Santos;2023;Brazil;44;101;16.07;0;0
+Gremio FB Porto Alegrense Women;Gremio W;2023;Brazil;84;61;11.62;0;0
+Sao Paulo Futebol Clube Women;Sao Paulo Women;2023;Brazil;50;95;12.93;0;0
+SE Palmeiras Women;Palmeiras Women;2023;Brazil;31;85;16.67;0;0
+Internacional RS;Internacional RS;2023;Brazil;61;76;12.62;0;0
+Cruzeiro EC Women;Cruzeiro W;2023;Brazil;39;48;14.67;0;0
+Bahia Women;Bahia W;2023;Brazil;54;41;12.13;0;0
+Real Brasi­lia FC;Real Brasi­lia W;2023;Brazil;84;56;13.57;0;0
+CA Mineiro Women;Atletico Mineiro W;2023;Brazil;80;59;17.07;0;0
+Club Athletico Paranaense;Athletico Paranaense;2023;Brazil;90;41;10.64;0;0
+Cear SC Women;Cear W;2023;Brazil;191;18;9.25;0;0
+Real Desportivo Ariquemes FC Women;Real Ariquemes W;2023;Brazil;134;25;8,00;0;0
+Arsenal FC;Arsenal;2023/2024;England;45;90;10,00;8;3
+Tottenham Hotspur FC;Tottenham Hotspur;2023/2024;England;33;90;14,00;8;3
+Manchester City FC;Manchester City;2023/2024;England;33;180;7,00;13;2
+Crystal Palace FC;Crystal Palace;2023/2024;England;72;90;16,00;10;3
+Everton FC;Everton;2023/2024;England;180;45;10,00;13;3
+Burnley FC;Burnley;2023/2024;England;90;25;11,00;15;3
+AFC Bournemouth;AFC Bournemouth;2023/2024;England;90;45;11,00;13;2
+Manchester United FC;Manchester United;2023/2024;England;72;51;5,00;7;3
+Liverpool FC;Liverpool;2023/2024;England;40;120;15,00;11;7
+Chelsea FC;Chelsea;2023/2024;England;72;72;9,00;12;5
+West Ham United FC;West Ham United;2023/2024;England;40;90;8,00;13;6
+Newcastle United FC;Newcastle United;2023/2024;England;51;51;7,00;17;5
+Aston Villa FC;Aston Villa;2023/2024;England;45;40;10,00;7;7
+Fulham FC;Fulham;2023/2024;England;90;36;6,00;9;2
+Brighton & Hove Albion FC;Brighton & Hove Albion;2023/2024;England;30;60;12,00;14;5
+Nottingham Forest FC;Nottingham Forest;2023/2024;England;60;60;8,00;10;5
+Brentford FC;Brentford;2023/2024;England;45;72;19,00;7;2
+Wolverhampton Wanderers FC;Wolverhampton Wanderers;2023/2024;England;90;45;11,00;12;3
+Sheffield United FC;Sheffield United;2023/2024;England;90;51;13,00;11;3
+Luton Town FC;Luton Town;2023/2024;England;134;30;12,00;9;6
+SSC Napoli;Napoli;2023/2024;Italy;45;90;15,00;29;17
+Juventus FC;Juventus;2023/2024;Italy;45;273;10.33;38;14
+AS Roma;Roma;2023/2024;Italy;68;45;13.67;38;7
+Cagliari Calcio;Cagliari;2023/2024;Italy;273;68;7.33;33;8
+Torino FC;Torino;2023/2024;Italy;134;68;8.67;39;13
+Empoli FC;Empoli;2023/2024;Italy;0;54;10.33;42;11
+Genoa CFC;Genoa;2023/2024;Italy;134;54;5.33;39;11
+AC Milan;AC Milan;2023/2024;Italy;34;134;10.67;34;9
+SS Lazio;Lazio;2023/2024;Italy;90;68;9.33;32;11
+Atalanta Bergamasca Calcio;Atalanta;2023/2024;Italy;45;134;14.67;36;9
+Udinese Calcio;Udinese;2023/2024;Italy;273;68;11.33;45;11
+Bologna FC 1909;Bologna;2023/2024;Italy;90;68;12,00;32;10
+US Sassuolo Calcio;Sassuolo;2023/2024;Italy;90;54;8.33;22;11
+FC Internazionale Milano;Inter Milan;2023/2024;Italy;34;0;17,00;30;6
+ACF Fiorentina;Fiorentina;2023/2024;Italy;45;39;7.33;38;7
+Hellas Verona FC;Hellas Verona;2023/2024;Italy;68;68;9.33;46;13
+Frosinone Calcio;Frosinone;2023/2024;Italy;90;68;7.67;33;10
+US Salernitana 1919;Salernitana;2023/2024;Italy;90;54;8,00;29;5
+US Lecce;Lecce;2023/2024;Italy;45;90;10.33;44;7
+SS Monza 1912;Monza;2023/2024;Italy;134;54;11,00;35;10
+Villarreal CF;Villarreal;2023/2024;Spain;60;40;10,00;52;22
+FC Barcelona;FC Barcelona;2023/2024;Spain;45;90;13.25;51;20
+Real Madrid CF;Real Madrid;2023/2024;Spain;45;180;16.25;45;14
+Sevilla FC;Sevilla FC;2023/2024;Spain;54;34;11.33;40;9
+Club Atletico de Madrid;Atletico Madrid;2023/2024;Spain;27;273;10.67;36;12
+UD Las Palmas;UD Las Palmas;2023/2024;Spain;360;120;6.5;32;22
+Deportivo Alaves;Deportivo Alaves;2023/2024;Spain;72;72;10.25;62;11
+Real Club Celta de Vigo;Celta de Vigo;2023/2024;Spain;90;60;11.5;51;17
+Granada CF;Granada CF;2023/2024;Spain;51;30;8.5;50;26
+Real Betis Balompie;Real Betis;2023/2024;Spain;72;72;9.5;58;18
+Athletic Club Bilbao;Athletic Club Bilbao;2023/2024;Spain;60;90;8,00;67;19
+CA Osasuna;CA Osasuna;2023/2024;Spain;72;72;9,00;42;17
+Valencia CF;Valencia CF;2023/2024;Spain;90;90;10,00;49;13
+Real Sociedad de Futbol;Real Sociedad;2023/2024;Spain;51;72;10.5;73;26
+Rayo Vallecano;Rayo Vallecano;2023/2024;Spain;90;45;11.5;73;20
+Getafe Club de Futbol;Getafe CF;2023/2024;Spain;180;72;8.5;70;16
+UD Almeri­a;Almeria;2023/2024;Spain;90;40;13.25;55;12
+Real Club Deportivo Mallorca;RCD Mallorca;2023/2024;Spain;120;72;8,00;75;25
+Cadiz CF;Cadiz;2023/2024;Spain;72;90;9.75;78;11
+Girona FC;Girona FC;2023/2024;Spain;51;180;7.75;51;18
