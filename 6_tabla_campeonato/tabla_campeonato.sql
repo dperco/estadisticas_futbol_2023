@@ -116,3 +116,7 @@ FROM tabla_campeonato
 WHERE pais = 'Argentina';
 
 ####################################################################
+CREATE INDEX idx_common_name ON tabla_campeonato(common_name);
+CREATE INDEX idx_home_team_name ON datos_partidos(home_team_name);
+ALTER TABLE tabla_campeonato
+ADD FOREIGN KEY (common_name) REFERENCES datos_partidos(home_team_name);
