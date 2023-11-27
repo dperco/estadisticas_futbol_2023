@@ -31,7 +31,8 @@ CREATE VIEW vista_jugadores_en_partidos AS
 SELECT m.date_GMT AS Fecha,
        m.home_team_name AS Equipo_local,
 	    m.away_team_name AS Equipo_visitante,
-       p.full_name AS Nombre_del_jugador,
+       p.name AS Nombre_del_jugador,
+       p.last_name AS Apellido_del_Jugador,
        p.Current_club AS Club_del_jugador
 FROM datos_partidos m
 JOIN datos_de_jugadores p

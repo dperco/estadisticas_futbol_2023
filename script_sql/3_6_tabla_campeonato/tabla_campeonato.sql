@@ -81,17 +81,17 @@ CREATE TABLE tabla_campeonato AS
 SELECT
     pais,
     common_name,
-    SUM(punt_tot) AS punt_tot,
-    SUM(partid_jug) AS partid_jug,
-    SUM(part_ganados) AS part_ganados,
-    SUM(part_empatados) AS part_empatados,
-    SUM(part_perdidos) AS part_perdidos,
-    SUM(goles_a_favor) AS goles_a_favor,
-    SUM(goles_en_contra) AS goles_en_contra,
-    SUM(dif_gol) AS dif_gol
+    CAST(SUM(punt_tot) AS SIGNED) AS punt_tot,
+    CAST(SUM(partid_jug) AS SIGNED) AS partid_jug,
+    CAST(SUM(part_ganados) AS SIGNED) AS part_ganados,
+    CAST(SUM(part_empatados) AS SIGNED) AS part_empatados,
+    CAST(SUM(part_perdidos) AS SIGNED) AS part_perdidos,
+    CAST(SUM(goles_a_favor) AS SIGNED) AS goles_a_favor,
+    CAST(SUM(goles_en_contra) AS SIGNED) AS goles_en_contra,
+    CAST(SUM(dif_gol) AS SIGNED) AS dif_gol
 FROM TempTablaPosiciones
 GROUP BY pais, common_name
-ORDER BY punt_tot DESC, dif_gol DESC;
+ORDER BY punt_tot, dif_gol DESC;
 
 -- Eliminar la tabla temporal
 DROP TEMPORARY TABLE TempTablaPosiciones;
@@ -120,3 +120,31 @@ CREATE INDEX idx_common_name ON tabla_campeonato(common_name);
 CREATE INDEX idx_home_team_name ON datos_partidos(home_team_name);
 ALTER TABLE tabla_campeonato
 ADD FOREIGN KEY (common_name) REFERENCES datos_partidos(home_team_name);
+
+
+#si hay algun error de datos  al crear la fk ,buscamos las diferencias 
+
+#buscamos si hay algun home_team_name  diferente
+#SELECT home_team_name
+#FROM datos_partidos
+#WHERE home_team_name NOT IN (SELECT DISTINCT common_name FROM tabla_campeonato);
+
+#SELECT common_name
+#FROM tabla_campeonato
+#WHERE common_name NOT IN (SELECT DISTINCT home_team_name FROM datos_partidos);
+
+#buscamos si hay algun common_name diferente 
+#SELECT DISTINCT common_name
+#FROM tabla_campeonato
+#WHERE common_name NOT IN (SELECT DISTINCT home_team_name FROM datos_partidos)
+#UNION
+#SELECT DISTINCT home_team_name
+#FROM datos_partidos
+#WHERE home_team_name NOT IN (SELECT DISTINCT common_name FROM tabla_campeonato);
+
+#si hay alguna diferencia la modificamos 
+
+
+#UPDATE tabla_campeonato
+#ET common_name = 'Union Santa Fe'
+#WHERE common_name = 'Uniun Santa Fe';

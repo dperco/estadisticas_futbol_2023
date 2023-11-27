@@ -42,12 +42,12 @@ ALTER TABLE datos_equipos
 ADD UNIQUE INDEX idx_common_name (common_name);
 
 
-
+CREATE INDEX idx_nombre_pais ON paises(country_name);
 ALTER TABLE referee
 ADD CONSTRAINT fk_pais_referee FOREIGN KEY (country_name) REFERENCES paises(country_name);
 
-CREATE INDEX idx_full_name ON datos_de_jugadores (full_name);
-CREATE INDEX idx_full_name ON estadisticas_jugadores (full_name);
+CREATE INDEX idx_full_name ON datos_de_jugadores (last_name);
+CREATE INDEX idx_full_name ON estadisticas_jugadores (last_name);
 
 
 
@@ -62,7 +62,7 @@ ALTER TABLE tabla_de_goleadores
 ADD COLUMN id_stats_jugadores_fk INT,
 ADD FOREIGN KEY (id_stats_jugadores_fk) REFERENCES estadisticas_jugadores(id_stats_player);
 
-ALTER TABLE datos_estadio
+ALTER TABLE datos_estadios
 ADD COLUMN id_teams_partidos_fk INT,
 ADD FOREIGN KEY (id_teams_partidos_fk) REFERENCES datos_partidos(id_teams);
 

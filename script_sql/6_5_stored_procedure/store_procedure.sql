@@ -6,7 +6,7 @@ DELIMITER $$
 
 CREATE PROCEDURE ObtenerJugadoresPorEquipo(IN nombreEquipo VARCHAR(255))
 BEGIN
-    SELECT full_name
+    SELECT name,lastname
     FROM datos_de_jugadores
     WHERE Current_club = nombreEquipo;
 END;
@@ -45,7 +45,7 @@ BEGIN
     DECLARE sqlConsulta TEXT;
 
     -- Construye la consulta SQL dinámica
-    SET @sqlConsulta = CONCAT('SELECT full_name, Current_club FROM datos_de_jugadores WHERE ', columnaBusqueda, ' = ?');
+    SET @sqlConsulta = CONCAT('SELECT name,last_name, Current_club FROM datos_de_jugadores WHERE ', columnaBusqueda, ' = ?');
     
     -- Prepara la consulta SQL
     PREPARE stmt FROM @sqlConsulta;

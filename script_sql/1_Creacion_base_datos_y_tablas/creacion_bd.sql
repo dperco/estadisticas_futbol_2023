@@ -5,11 +5,12 @@ USE estadisticas_futbol_2023;
 CREATE TABLE datos_partidos (
     id_teams INT AUTO_INCREMENT PRIMARY KEY,
     timestamp int,
-    date_GMT datetime,
+    date_GMT date,
     country VARCHAR(50),
     home_team_name VARCHAR(50),
     away_team_name VARCHAR(50),
-    referee VARCHAR(50),
+    referee_name VARCHAR(50),
+	referee_last_name VARCHAR(50),
     home_team_goal_count INT,
     away_team_goal_count INT,
     total_goal_count INT,
@@ -29,7 +30,8 @@ CREATE TABLE datos_partidos (
 
 CREATE TABLE Estadisticas_jugadores (
     id_stats_player INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(50),
+    name VARCHAR(50),
+    last_name VARCHAR(50),
     age int,
     birthday datetime,
     birthday_GMT datetime,
@@ -60,16 +62,18 @@ CREATE TABLE Estadisticas_de_equipos (
     team_name VARCHAR(50),
     common_name varchar(50),
     country VARCHAR(50),
-    prom_goles_x_min_conv FLOAT,
-    prom_goles_x_min_recibidos FLOAT,
-    prom_x_min_remates FLOAT,
+    prom_goles_x_min_conv int,
+    prom_goles_x_min_recibidos int,
+    prom_x_min_remates int,
     total_foules_x_equipo INT,
     total_offsides_x_equipo INT
 );
 
 CREATE TABLE datos_de_jugadores (
+
     id_jugador INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(255),
+    name varchar(50),
+    last_name varchar (50),
     age INT,
     birthday_GMT date,
     position_player VARCHAR(50),
@@ -84,21 +88,33 @@ CREATE TABLE datos_equipos (
     country VARCHAR(50)
 );
 
+CREATE TABLE datos_estadios (
+    id_estadio INT AUTO_INCREMENT PRIMARY KEY,
+    stadium_name VARCHAR(100),
+    country VARCHAR(50)
+);
+
+
 CREATE TABLE paises (
     id_pais INT AUTO_INCREMENT PRIMARY KEY,
-    country_name VARCHAR(50)
+    country_name VARCHAR(50),
+    team_name varchar(50)
+    
 );
 
 CREATE TABLE referee (
     id_referee INT AUTO_INCREMENT PRIMARY KEY,
     country_name VARCHAR(50),
-    full_name VARCHAR(50)
+    referee_name VARCHAR(50),
+    referee_last_name VARCHAR(50)
 );
 
 
 
 CREATE TABLE posicion_jugador (
     id_posicion INT AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    last_name varchar(50),
     posicion_player VARCHAR(50)
 );
 
@@ -112,7 +128,8 @@ CREATE TABLE puente_jugador (
 
 CREATE TABLE tabla_de_goleadores (
     id_tab_gol INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(50),
+    name varchar(50),
+    last_name varchar(50),
     total_goles INT,
     country VARCHAR(50),
     equipo VARCHAR(50)
@@ -120,8 +137,9 @@ CREATE TABLE tabla_de_goleadores (
 
 CREATE TABLE tabla_de_asistidores (
     id_tab_asist INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(50),
-    total_goles INT,
+    name varchar(50),
+    last_name varchar(50),
+    total_asistencias INT,
     country VARCHAR(50),
     equipo VARCHAR(50)
 );

@@ -1,6 +1,6 @@
 /*
 -- Query: SELECT * FROM estadisticas_futbol_2023.datos_equipos
--- Date: 2023-11-22 17:08
+-- Date: 2023-11-27 11:45
 */
 INSERT INTO `` (`id_equipo`,`team_name`,`common_name`,`country`) VALUES (1,'CA Tigre','Tigre','Argentina');
 INSERT INTO `` (`id_equipo`,`team_name`,`common_name`,`country`) VALUES (2,'CA Belgrano de Cordoba','Belgrano','Argentina');

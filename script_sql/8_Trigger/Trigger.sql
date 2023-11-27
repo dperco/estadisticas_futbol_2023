@@ -26,6 +26,7 @@ DELIMITER $$
 #Registra quién está realizando la actualización, la fecha y la hora en que se realiza la acción, la acción en 
 #sí (ACTUALIZACIÓN) y una descripción que incluye el nombre del equipo antes y después de la actualización.
 
+
 CREATE TRIGGER after_update_equipo
 AFTER UPDATE ON datos_equipos
 FOR EACH ROW
@@ -50,7 +51,7 @@ BEFORE INSERT ON datos_de_jugadores
 FOR EACH ROW
 BEGIN
     INSERT INTO log_jugadores (usuario, fecha, hora, accion, descripcion)
-    VALUES (USER(), CURDATE(), CURTIME(), 'INSERCIÓN', CONCAT('Nuevo jugador insertado: ', NEW.full_name));
+    VALUES (USER(), CURDATE(), CURTIME(), 'INSERCIÓN', CONCAT('Nuevo jugador insertado: ', NEW.name,New.last_name));
 END;
 $$
 
@@ -61,18 +62,18 @@ DELIMITER ;
 #sí (ACTUALIZACIÓN) y una descripción que incluye el nombre del jugador antes y después de la actualización.
 
 
-DELIMITER $$
+#DELIMITER $$
 
-CREATE TRIGGER after_update_jugador
-AFTER UPDATE ON datos_de_jugadores
-FOR EACH ROW
-BEGIN
-    INSERT INTO log_jugadores (usuario, fecha, hora, accion, descripcion)
-    VALUES (USER(), CURDATE(), CURTIME(), 'ACTUALIZACIÓN', CONCAT('Jugador actualizado: ', OLD.full_name, ' -> ', NEW.full_name));
-END;
-$$
+#CREATE TRIGGER after_update_jugador
+#AFTER UPDATE ON datos_de_jugadores
+#FOR EACH ROW
+#BEGIN
+ #   INSERT INTO log_jugadores (usuario, fecha, hora, accion, descripcion)
+  #  VALUES (USER(), CURDATE(), CURTIME(), 'ACTUALIZACIÓN', CONCAT('Jugador actualizado: ', OLD.last_name ' -> ', NEW.last_name));
+#END;
+#$$
 
-DELIMITER ;
+#DELIMITER ;
 
 
 -- Crear disparador para registrar inserciones en datos_partidos
