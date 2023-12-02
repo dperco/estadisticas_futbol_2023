@@ -1,10 +1,11 @@
-1- crear  tablas y base de datos = con el script sql que se encuentra en la carpeta /script_sql/1_Creacion_base_de_datos_y_tablas
-2- cargar datos :   en cada una de las tablas importar  para cada una ,los datos que estan en  /script_sql/2_Carga_Datos , para cada tabla corresponde un script .sql , con su nombre equivalente  
-3- crear la tabla inetermedia ,para luego crear tabla final = Tabla_Campeonato el script esta en /script_sql/3_tabla_campeonato
-4- crear las FK ,ejecutar el script de la carpeta /script_sql/4_forend_key
-5- crear las views , ejecutando scripts de la carpeta /script_sql/5_views
-6- crear los procedure ,ejecutando el script de la carpeta /script_sql/6_stored_procedure
-7- crear las functions ,ejecutando el script de la carpeta /script_sql/7_functions
-8- crear los Triggers ,ejecutando el script de la carpeta /script_sql/8_Triggers
-9- crear las Sentencias ,ejecutando el script de la carpeta /script_sql/9_Sentencias
-10-crear las TCL ,ejecutando el script de la carpeta /script_sql/10_TCL
+1- crear tablas y bd = con el script sql que se enc en la carpeta /Documentacion_tecnica/script_sql/1_Creacion_base_de_datos_y_tablas
+2- cargar datos :   en cada una de las tablas importar   ,los datos que estan en /Documentacion_tecnica /script_sql/ 2_Carga_Datos , para cada tabla corresponde un script .sql , con su nombre equivalente  
+3- crear tabla final = Tabla_Campeonato el script esta en /Documentacion_tecnica/script_sql/3_tabla_campeonato
+4- crear las FK ,ejecutar el script de la carpeta /Documentacion_tecnica/script_sql/4_forend_key
+5- crear las views , ejecutando scripts de la carpeta /Documentacion_tecnica/script_sql/5_views
+6- crear los procedure ,ejecutando el script de la carpeta /Documentacion_tecnica/script_sql/6_stored_procedure
+7- crear las functions ,ejecutando el script de la carpeta /Documentacion_tecnica/script_sql/7_functions
+8- crear los Triggers ,ejecutando el script de la carpeta /Documentacion_tecnica/script_sql/8_Triggers
+9- crear las Sentencias ,ejecutando el script de la carpeta /Documentacion_tecnica/script_sql/9_Sentencias
+10-crear las TCL ,ejecutando el script de la carpeta /Documentacion_tecnica/script_sql/10_TCL
+11-  backup - en caso  de necesitar recuperar la base ,en la carpeta /Documentacion_tecnica/script_sql/backup  esta el backup de la bd 
