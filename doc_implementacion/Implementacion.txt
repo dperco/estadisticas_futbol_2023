@@ -1,5 +1,5 @@
-1- crear tablas y bd = con el script sql que se enc en la carpeta /Documentacion_tecnica/script_sql/1_Creacion_base_de_datos_y_tablas
-2- cargar datos :   en cada una de las tablas importar   ,los datos que estan en /Documentacion_tecnica /script_sql/ 2_Carga_Datos , para cada tabla corresponde un script .sql , con su nombre equivalente  
+1- crear tablas y bd = con el script sql  en la carpeta /Documentacion_tecnica/script_sql/1_Creacion_base_de_datos_y_tablas
+2- cargar datos :   en cada una de las tablas ejecutar los scripts que estan en /Documentacion_tecnica /script_sql/ 2_Carga_Datos , para cada tabla corresponde un script .sql , con su nombre equivalente  
 3- crear tabla final = Tabla_Campeonato el script esta en /Documentacion_tecnica/script_sql/3_tabla_campeonato
 4- crear las FK ,ejecutar el script de la carpeta /Documentacion_tecnica/script_sql/4_forend_key
 5- crear las views , ejecutando scripts de la carpeta /Documentacion_tecnica/script_sql/5_views

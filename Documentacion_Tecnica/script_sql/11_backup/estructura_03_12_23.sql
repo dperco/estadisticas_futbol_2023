@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `estadisticas_futbol_2023` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `estadisticas_futbol_2023`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: estadisticas_futbol_2023
@@ -102,17 +100,35 @@ DROP TABLE IF EXISTS `datos_de_jugadores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `datos_de_jugadores` (
   `id_jugador` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(255) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `age` int DEFAULT NULL,
   `birthday_GMT` date DEFAULT NULL,
   `position_player` varchar(50) DEFAULT NULL,
   `current_club` varchar(50) DEFAULT NULL,
   `nationality` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_jugador`),
-  KEY `idx_nationality` (`nationality`),
-  KEY `idx_full_name` (`full_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2827 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `idx_full_name` (`last_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2784 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `before_insert_jugador` BEFORE INSERT ON `datos_de_jugadores` FOR EACH ROW BEGIN
+    INSERT INTO log_jugadores (usuario, fecha, hora, accion, descripcion)
+    VALUES (USER(), CURDATE(), CURTIME(), 'INSERCIÓN', CONCAT('Nuevo jugador insertado: ', NEW.name,New.last_name));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `datos_equipos`
@@ -127,26 +143,79 @@ CREATE TABLE `datos_equipos` (
   `common_name` varchar(50) DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_equipo`),
-  UNIQUE KEY `idx_common_name` (`common_name`),
-  KEY `idx_current_club` (`team_name`)
+  UNIQUE KEY `idx_common_name` (`common_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `before_insert_equipo` BEFORE INSERT ON `datos_equipos` FOR EACH ROW BEGIN
+    INSERT INTO log_equipos (usuario, fecha, hora, accion, descripcion)
+    VALUES (USER(), CURDATE(), CURTIME(), 'INSERCIÓN', CONCAT('Nuevo equipo insertado: ', NEW.common_name));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_datos_equipos_after_insert` AFTER INSERT ON `datos_equipos` FOR EACH ROW BEGIN
+    INSERT INTO auditoria_datos_equipos (tabla_afectada, accion_realizada, id_registro_afectado, usuario, fecha_hora, detalle_cambio)
+    VALUES ('datos_equipos', 'INSERT', NEW.id_equipo, USER(), NOW(), 'Registro insertado en datos_equipos');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `after_update_equipo` AFTER UPDATE ON `datos_equipos` FOR EACH ROW BEGIN
+    INSERT INTO log_equipos (usuario, fecha, hora, accion, descripcion)
+    VALUES (USER(), CURDATE(), CURTIME(), 'ACTUALIZACIÓN', CONCAT('Equipo actualizado: ', OLD.common_name, ' -> ', NEW.common_name));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `datos_estadio`
+-- Table structure for table `datos_estadios`
 --
 
-DROP TABLE IF EXISTS `datos_estadio`;
+DROP TABLE IF EXISTS `datos_estadios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `datos_estadio` (
+CREATE TABLE `datos_estadios` (
   `id_estadio` int NOT NULL AUTO_INCREMENT,
   `stadium_name` varchar(100) DEFAULT NULL,
-  `country_name` varchar(50) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
   `id_teams_partidos_fk` int DEFAULT NULL,
   PRIMARY KEY (`id_estadio`),
   KEY `id_teams_partidos_fk` (`id_teams_partidos_fk`),
-  CONSTRAINT `datos_estadio_ibfk_1` FOREIGN KEY (`id_teams_partidos_fk`) REFERENCES `datos_partidos` (`id_teams`)
+  CONSTRAINT `datos_estadios_ibfk_1` FOREIGN KEY (`id_teams_partidos_fk`) REFERENCES `datos_partidos` (`id_teams`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,11 +229,12 @@ DROP TABLE IF EXISTS `datos_partidos`;
 CREATE TABLE `datos_partidos` (
   `id_teams` int NOT NULL AUTO_INCREMENT,
   `timestamp` int DEFAULT NULL,
-  `date_GMT` datetime DEFAULT NULL,
+  `date_` date DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
   `home_team_name` varchar(50) DEFAULT NULL,
   `away_team_name` varchar(50) DEFAULT NULL,
-  `referee` varchar(50) DEFAULT NULL,
+  `referee_name` varchar(50) DEFAULT NULL,
+  `referee_last_name` varchar(50) DEFAULT NULL,
   `home_team_goal_count` int DEFAULT NULL,
   `away_team_goal_count` int DEFAULT NULL,
   `total_goal_count` int DEFAULT NULL,
@@ -188,13 +258,30 @@ CREATE TABLE `datos_partidos` (
   KEY `fk_equipo_local` (`id_equipo_local`),
   KEY `fk_equipo_visitante` (`id_equipo_visitante`),
   KEY `fk_referee` (`id_referee`),
-  KEY `idx_home_team_name` (`home_team_name`),
   CONSTRAINT `fk_equipo_local` FOREIGN KEY (`id_equipo_local`) REFERENCES `datos_equipos` (`id_equipo`),
   CONSTRAINT `fk_equipo_visitante` FOREIGN KEY (`id_equipo_visitante`) REFERENCES `datos_equipos` (`id_equipo`),
   CONSTRAINT `fk_pais` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`),
   CONSTRAINT `fk_referee` FOREIGN KEY (`id_referee`) REFERENCES `referee` (`id_referee`)
-) ENGINE=InnoDB AUTO_INCREMENT=549 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=791 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_datos_partidos_after_insert` AFTER INSERT ON `datos_partidos` FOR EACH ROW BEGIN
+    INSERT INTO auditoria_datos_partidos (tabla_afectada, accion_realizada, id_registro_afectado, usuario, fecha_hora, detalle_cambio)
+    VALUES ('datos_partidos', 'INSERT', NEW.id_teams, USER(), NOW(), 'Registro insertado en datos_partidos');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `estadisticas_de_equipos`
@@ -208,9 +295,9 @@ CREATE TABLE `estadisticas_de_equipos` (
   `team_name` varchar(50) DEFAULT NULL,
   `common_name` varchar(50) DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
-  `prom_goles_x_min_conv` float DEFAULT NULL,
-  `prom_goles_x_min_recibidos` float DEFAULT NULL,
-  `prom_x_min_remates` float DEFAULT NULL,
+  `prom_goles_x_min_conv` int DEFAULT NULL,
+  `prom_goles_x_min_recibidos` int DEFAULT NULL,
+  `prom_x_min_remates` int DEFAULT NULL,
   `total_foules_x_equipo` int DEFAULT NULL,
   `total_offsides_x_equipo` int DEFAULT NULL,
   `id_pais` int DEFAULT NULL,
@@ -220,8 +307,26 @@ CREATE TABLE `estadisticas_de_equipos` (
   KEY `fk_equipo_actual` (`id_equipo`),
   CONSTRAINT `fk_equipo_actual` FOREIGN KEY (`id_equipo`) REFERENCES `datos_equipos` (`id_equipo`),
   CONSTRAINT `fk_pais_equipo` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_estadisticas_equipos_after_update` AFTER UPDATE ON `estadisticas_de_equipos` FOR EACH ROW BEGIN
+    INSERT INTO auditoria_estadisticas_equipos (tabla_afectada, accion_realizada, id_registro_afectado, usuario, fecha_hora, detalle_cambio)
+    VALUES ('Estadisticas_de_equipos', 'UPDATE', NEW.id_stats_equipo, USER(), NOW(), 'Registro actualizado en Estadisticas_de_equipos');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `estadisticas_jugadores`
@@ -232,7 +337,8 @@ DROP TABLE IF EXISTS `estadisticas_jugadores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estadisticas_jugadores` (
   `id_stats_player` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `age` int DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
   `birthday_GMT` datetime DEFAULT NULL,
@@ -264,13 +370,31 @@ CREATE TABLE `estadisticas_jugadores` (
   KEY `fk_posicion_jugador` (`id_posicion`),
   KEY `fk_pais_jugador` (`id_pais`),
   KEY `fk_equipo_jugador` (`id_equipo`),
-  KEY `idx_full_name` (`full_name`),
+  KEY `idx_full_name` (`last_name`),
   CONSTRAINT `fk_datos_jugadores` FOREIGN KEY (`id_jugador`) REFERENCES `datos_de_jugadores` (`id_jugador`),
   CONSTRAINT `fk_equipo_jugador` FOREIGN KEY (`id_equipo`) REFERENCES `datos_equipos` (`id_equipo`),
   CONSTRAINT `fk_pais_jugador` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`),
   CONSTRAINT `fk_posicion_jugador` FOREIGN KEY (`id_posicion`) REFERENCES `posicion_jugador` (`id_posicion`)
-) ENGINE=InnoDB AUTO_INCREMENT=2826 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2786 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_estadisticas_jugadores_after_update` AFTER UPDATE ON `estadisticas_jugadores` FOR EACH ROW BEGIN
+    INSERT INTO auditoria_estadisticas_jugadores (tabla_afectada, accion_realizada, id_registro_afectado, usuario, fecha_hora, detalle_cambio)
+    VALUES ('Estadisticas_jugadores', 'UPDATE', NEW.id_stats_player, USER(), NOW(), 'Registro actualizado en Estadisticas_jugadores');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `paises`
@@ -282,9 +406,10 @@ DROP TABLE IF EXISTS `paises`;
 CREATE TABLE `paises` (
   `id_pais` int NOT NULL AUTO_INCREMENT,
   `country_name` varchar(50) DEFAULT NULL,
+  `team_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_pais`),
-  KEY `idx_country_name` (`country_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `idx_nombre_pais` (`country_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,11 +421,10 @@ DROP TABLE IF EXISTS `posicion_jugador`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `posicion_jugador` (
   `id_posicion` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `posicion_player` varchar(50) DEFAULT NULL,
-  `nombre_jugador` varchar(50) DEFAULT NULL,
-  `equipo` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_posicion`),
-  KEY `idx_posicion_jugador` (`posicion_player`)
+  PRIMARY KEY (`id_posicion`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2784 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -333,11 +457,12 @@ DROP TABLE IF EXISTS `referee`;
 CREATE TABLE `referee` (
   `id_referee` int NOT NULL AUTO_INCREMENT,
   `country_name` varchar(50) DEFAULT NULL,
-  `full_name` varchar(50) DEFAULT NULL,
+  `referee_name` varchar(50) DEFAULT NULL,
+  `referee_last_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_referee`),
   KEY `fk_pais_referee` (`country_name`),
   CONSTRAINT `fk_pais_referee` FOREIGN KEY (`country_name`) REFERENCES `paises` (`country_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,16 +475,14 @@ DROP TABLE IF EXISTS `tabla_campeonato`;
 CREATE TABLE `tabla_campeonato` (
   `pais` varchar(50) DEFAULT NULL,
   `common_name` varchar(50) DEFAULT NULL,
-  `punt_tot` decimal(45,0) DEFAULT NULL,
-  `partid_jug` decimal(42,0) DEFAULT NULL,
-  `part_ganados` decimal(45,0) DEFAULT NULL,
-  `part_empatados` decimal(45,0) DEFAULT NULL,
-  `part_perdidos` decimal(45,0) DEFAULT NULL,
-  `goles_a_favor` decimal(54,0) DEFAULT NULL,
-  `goles_en_contra` decimal(54,0) DEFAULT NULL,
-  `dif_gol` decimal(55,0) DEFAULT NULL,
-  KEY `idx_common_name` (`common_name`),
-  CONSTRAINT `tabla_campeonato_ibfk_1` FOREIGN KEY (`common_name`) REFERENCES `datos_partidos` (`home_team_name`)
+  `punt_tot` bigint DEFAULT NULL,
+  `partid_jug` bigint DEFAULT NULL,
+  `part_ganados` bigint DEFAULT NULL,
+  `part_empatados` bigint DEFAULT NULL,
+  `part_perdidos` bigint DEFAULT NULL,
+  `goles_a_favor` bigint DEFAULT NULL,
+  `goles_en_contra` bigint DEFAULT NULL,
+  `dif_gol` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -372,7 +495,8 @@ DROP TABLE IF EXISTS `tabla_de_asistidores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tabla_de_asistidores` (
   `id_tab_asist` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `total_asistencias` int DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
   `equipo` varchar(50) DEFAULT NULL,
@@ -380,7 +504,7 @@ CREATE TABLE `tabla_de_asistidores` (
   PRIMARY KEY (`id_tab_asist`),
   KEY `id_stats_jugadores_fk` (`id_stats_jugadores_fk`),
   CONSTRAINT `tabla_de_asistidores_ibfk_1` FOREIGN KEY (`id_stats_jugadores_fk`) REFERENCES `estadisticas_jugadores` (`id_stats_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=2827 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2783 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,7 +516,8 @@ DROP TABLE IF EXISTS `tabla_de_goleadores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tabla_de_goleadores` (
   `id_tab_gol` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `total_goles` int DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
   `equipo` varchar(50) DEFAULT NULL,
@@ -400,7 +525,7 @@ CREATE TABLE `tabla_de_goleadores` (
   PRIMARY KEY (`id_tab_gol`),
   KEY `id_stats_jugadores_fk` (`id_stats_jugadores_fk`),
   CONSTRAINT `tabla_de_goleadores_ibfk_1` FOREIGN KEY (`id_stats_jugadores_fk`) REFERENCES `estadisticas_jugadores` (`id_stats_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=2827 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2783 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,22 +562,6 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `vista_jugadores_en_partidos`
---
-
-DROP TABLE IF EXISTS `vista_jugadores_en_partidos`;
-/*!50001 DROP VIEW IF EXISTS `vista_jugadores_en_partidos`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vista_jugadores_en_partidos` AS SELECT 
- 1 AS `Fecha`,
- 1 AS `Equipo_local`,
- 1 AS `Equipo_visitante`,
- 1 AS `Nombre_del_jugador`,
- 1 AS `Club_del_jugador`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Temporary view structure for view `vista_jugadores_mayores_25`
 --
 
@@ -462,7 +571,8 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vista_jugadores_mayores_25` AS SELECT 
  1 AS `id_jugador`,
- 1 AS `full_name`,
+ 1 AS `name`,
+ 1 AS `last_name`,
  1 AS `age`,
  1 AS `birthday_GMT`,
  1 AS `position_player`,
@@ -480,7 +590,8 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vista_jugadores_river_mas_25` AS SELECT 
  1 AS `id_jugador`,
- 1 AS `full_name`,
+ 1 AS `name`,
+ 1 AS `last_name`,
  1 AS `age`,
  1 AS `birthday_GMT`,
  1 AS `position_player`,
@@ -499,11 +610,12 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50001 CREATE VIEW `vista_partidos_de_boca` AS SELECT 
  1 AS `id_teams`,
  1 AS `timestamp`,
- 1 AS `date_GMT`,
+ 1 AS `date_`,
  1 AS `country`,
  1 AS `home_team_name`,
  1 AS `away_team_name`,
- 1 AS `referee`,
+ 1 AS `referee_name`,
+ 1 AS `referee_last_name`,
  1 AS `home_team_goal_count`,
  1 AS `away_team_goal_count`,
  1 AS `total_goal_count`,
@@ -523,6 +635,181 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `id_equipo_visitante`,
  1 AS `id_referee`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'estadisticas_futbol_2023'
+--
+
+--
+-- Dumping routines for database 'estadisticas_futbol_2023'
+--
+/*!50003 DROP FUNCTION IF EXISTS `BuscarJugadoresPorNombre` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `BuscarJugadoresPorNombre`(nombreBuscado VARCHAR(100)) RETURNS text CHARSET utf8mb4
+    NO SQL
+    DETERMINISTIC
+BEGIN
+    DECLARE resultado TEXT;
+    
+    SELECT GROUP_CONCAT(last_name) INTO resultado
+    FROM datos_de_jugadores
+    WHERE last_name LIKE CONCAT('%', nombreBuscado, '%');
+    
+    IF resultado IS NULL THEN
+        SET resultado = 'No se encontraron jugadores con ese nombre.';
+    END IF;
+    
+    RETURN resultado;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `contarAsistenciasPorEquipo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `contarAsistenciasPorEquipo`(nombreEquipo VARCHAR(255)) RETURNS int
+    READS SQL DATA
+BEGIN
+    DECLARE totalAsistencias INT;
+
+    SELECT SUM(total_asistencias) INTO totalAsistencias
+    FROM tabla_de_asistidores
+    WHERE equipo = nombreEquipo;
+
+    RETURN IFNULL(totalAsistencias, 0);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `BuscarJugadoresPorCriterio` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscarJugadoresPorCriterio`(IN columnaBusqueda VARCHAR(255), IN valorBusqueda VARCHAR(255))
+BEGIN
+    DECLARE sqlConsulta TEXT;
+
+    -- Construye la consulta SQL dinámica
+    SET @sqlConsulta = CONCAT('SELECT name,last_name, Current_club FROM datos_de_jugadores WHERE ', columnaBusqueda, ' = ?');
+    
+    -- Prepara la consulta SQL
+    PREPARE stmt FROM @sqlConsulta;
+
+    -- Ejecuta la consulta
+    SET @valorBusqueda = valorBusqueda;
+    EXECUTE stmt USING @valorBusqueda;
+    
+    -- Libera la consulta preparada
+    DEALLOCATE PREPARE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `EquiposConPromedioMinutosPorGol` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EquiposConPromedioMinutosPorGol`(IN minPromedio INT)
+BEGIN
+    DECLARE sqlConsulta TEXT;
+    SET @minPromedio = minPromedio; -- Asigna el valor del parámetro a una variable
+
+    -- Construye la consulta SQL dinámica
+    SET @sqlConsulta = CONCAT(
+        'SELECT t.common_name AS equipo, AVG(p.age) AS promedio_edad
+        FROM datos_equipos t
+        JOIN datos_de_jugadores p ON t.common_name = p.Current_club
+        WHERE t.common_name IN (
+            SELECT equipo
+            FROM (
+                SELECT DISTINCT home_team_name AS equipo
+                FROM datos_partidos
+                UNION
+                SELECT DISTINCT away_team_name AS equipo
+                FROM datos_partidos
+            ) subquery
+            WHERE equipo IN (
+                SELECT equipo
+                FROM (
+                    SELECT common_name AS equipo, AVG(prom_goles_x_min_conv) AS promedio_goles_por_minuto
+                    FROM estadisticas_de_equipos
+                    GROUP BY common_name
+                ) AS sub
+                WHERE promedio_goles_por_minuto > ', @minPromedio, '
+            )
+        )
+        GROUP BY t.common_name
+        HAVING AVG(p.age) IS NOT NULL'
+    );
+
+    -- Prepara la consulta SQL
+    PREPARE stmt FROM @sqlConsulta;
+
+    -- Ejecuta la consulta
+    EXECUTE stmt;
+    
+    -- Libera la consulta preparada
+    DEALLOCATE PREPARE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerJugadoresPorEquipo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerJugadoresPorEquipo`(IN nombreEquipo VARCHAR(100))
+BEGIN
+    SELECT name,last_name
+    FROM datos_de_jugadores
+    WHERE Current_club = nombreEquipo;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `vista_campeonato_por_pais_argentina`
@@ -561,24 +848,6 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `vista_jugadores_en_partidos`
---
-
-/*!50001 DROP VIEW IF EXISTS `vista_jugadores_en_partidos`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_jugadores_en_partidos` AS select `m`.`date_GMT` AS `Fecha`,`m`.`home_team_name` AS `Equipo_local`,`m`.`away_team_name` AS `Equipo_visitante`,`p`.`full_name` AS `Nombre_del_jugador`,`p`.`current_club` AS `Club_del_jugador` from (`datos_partidos` `m` join `datos_de_jugadores` `p` on(((`m`.`home_team_name` = `p`.`current_club`) or (`m`.`away_team_name` = `p`.`current_club`)))) where (`m`.`date_GMT` = '2023-11-02 00:00:00') */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `vista_jugadores_mayores_25`
 --
 
@@ -591,7 +860,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_jugadores_mayores_25` AS select `datos_de_jugadores`.`id_jugador` AS `id_jugador`,`datos_de_jugadores`.`full_name` AS `full_name`,`datos_de_jugadores`.`age` AS `age`,`datos_de_jugadores`.`birthday_GMT` AS `birthday_GMT`,`datos_de_jugadores`.`position_player` AS `position_player`,`datos_de_jugadores`.`current_club` AS `current_club`,`datos_de_jugadores`.`nationality` AS `nationality` from `datos_de_jugadores` where (`datos_de_jugadores`.`age` > '25') */;
+/*!50001 VIEW `vista_jugadores_mayores_25` AS select `datos_de_jugadores`.`id_jugador` AS `id_jugador`,`datos_de_jugadores`.`name` AS `name`,`datos_de_jugadores`.`last_name` AS `last_name`,`datos_de_jugadores`.`age` AS `age`,`datos_de_jugadores`.`birthday_GMT` AS `birthday_GMT`,`datos_de_jugadores`.`position_player` AS `position_player`,`datos_de_jugadores`.`current_club` AS `current_club`,`datos_de_jugadores`.`nationality` AS `nationality` from `datos_de_jugadores` where (`datos_de_jugadores`.`age` > '25') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -609,7 +878,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_jugadores_river_mas_25` AS select `vista_jugadores_mayores_25`.`id_jugador` AS `id_jugador`,`vista_jugadores_mayores_25`.`full_name` AS `full_name`,`vista_jugadores_mayores_25`.`age` AS `age`,`vista_jugadores_mayores_25`.`birthday_GMT` AS `birthday_GMT`,`vista_jugadores_mayores_25`.`position_player` AS `position_player`,`vista_jugadores_mayores_25`.`current_club` AS `current_club`,`vista_jugadores_mayores_25`.`nationality` AS `nationality` from `vista_jugadores_mayores_25` where (`vista_jugadores_mayores_25`.`current_club` = 'River Plate') */;
+/*!50001 VIEW `vista_jugadores_river_mas_25` AS select `vista_jugadores_mayores_25`.`id_jugador` AS `id_jugador`,`vista_jugadores_mayores_25`.`name` AS `name`,`vista_jugadores_mayores_25`.`last_name` AS `last_name`,`vista_jugadores_mayores_25`.`age` AS `age`,`vista_jugadores_mayores_25`.`birthday_GMT` AS `birthday_GMT`,`vista_jugadores_mayores_25`.`position_player` AS `position_player`,`vista_jugadores_mayores_25`.`current_club` AS `current_club`,`vista_jugadores_mayores_25`.`nationality` AS `nationality` from `vista_jugadores_mayores_25` where (`vista_jugadores_mayores_25`.`current_club` = 'River Plate') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -627,7 +896,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_partidos_de_boca` AS select `datos_partidos`.`id_teams` AS `id_teams`,`datos_partidos`.`timestamp` AS `timestamp`,`datos_partidos`.`date_GMT` AS `date_GMT`,`datos_partidos`.`country` AS `country`,`datos_partidos`.`home_team_name` AS `home_team_name`,`datos_partidos`.`away_team_name` AS `away_team_name`,`datos_partidos`.`referee` AS `referee`,`datos_partidos`.`home_team_goal_count` AS `home_team_goal_count`,`datos_partidos`.`away_team_goal_count` AS `away_team_goal_count`,`datos_partidos`.`total_goal_count` AS `total_goal_count`,`datos_partidos`.`home_team_yellow_cards` AS `home_team_yellow_cards`,`datos_partidos`.`home_team_red_cards` AS `home_team_red_cards`,`datos_partidos`.`away_team_yellow_cards` AS `away_team_yellow_cards`,`datos_partidos`.`away_team_red_cards` AS `away_team_red_cards`,`datos_partidos`.`home_team_shots` AS `home_team_shots`,`datos_partidos`.`away_team_shots` AS `away_team_shots`,`datos_partidos`.`home_team_fouls` AS `home_team_fouls`,`datos_partidos`.`away_team_fouls` AS `away_team_fouls`,`datos_partidos`.`home_team_possession` AS `home_team_possession`,`datos_partidos`.`away_team_possession` AS `away_team_possession`,`datos_partidos`.`stadium_name` AS `stadium_name`,`datos_partidos`.`id_pais` AS `id_pais`,`datos_partidos`.`id_equipo_local` AS `id_equipo_local`,`datos_partidos`.`id_equipo_visitante` AS `id_equipo_visitante`,`datos_partidos`.`id_referee` AS `id_referee` from `datos_partidos` where (`datos_partidos`.`home_team_name` = 'Boca Juniors') */;
+/*!50001 VIEW `vista_partidos_de_boca` AS select `datos_partidos`.`id_teams` AS `id_teams`,`datos_partidos`.`timestamp` AS `timestamp`,`datos_partidos`.`date_` AS `date_`,`datos_partidos`.`country` AS `country`,`datos_partidos`.`home_team_name` AS `home_team_name`,`datos_partidos`.`away_team_name` AS `away_team_name`,`datos_partidos`.`referee_name` AS `referee_name`,`datos_partidos`.`referee_last_name` AS `referee_last_name`,`datos_partidos`.`home_team_goal_count` AS `home_team_goal_count`,`datos_partidos`.`away_team_goal_count` AS `away_team_goal_count`,`datos_partidos`.`total_goal_count` AS `total_goal_count`,`datos_partidos`.`home_team_yellow_cards` AS `home_team_yellow_cards`,`datos_partidos`.`home_team_red_cards` AS `home_team_red_cards`,`datos_partidos`.`away_team_yellow_cards` AS `away_team_yellow_cards`,`datos_partidos`.`away_team_red_cards` AS `away_team_red_cards`,`datos_partidos`.`home_team_shots` AS `home_team_shots`,`datos_partidos`.`away_team_shots` AS `away_team_shots`,`datos_partidos`.`home_team_fouls` AS `home_team_fouls`,`datos_partidos`.`away_team_fouls` AS `away_team_fouls`,`datos_partidos`.`home_team_possession` AS `home_team_possession`,`datos_partidos`.`away_team_possession` AS `away_team_possession`,`datos_partidos`.`stadium_name` AS `stadium_name`,`datos_partidos`.`id_pais` AS `id_pais`,`datos_partidos`.`id_equipo_local` AS `id_equipo_local`,`datos_partidos`.`id_equipo_visitante` AS `id_equipo_visitante`,`datos_partidos`.`id_referee` AS `id_referee` from `datos_partidos` where (`datos_partidos`.`home_team_name` = 'Boca Juniors') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -641,4 +910,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-23 18:59:39
+-- Dump completed on 2023-12-03 21:46:34

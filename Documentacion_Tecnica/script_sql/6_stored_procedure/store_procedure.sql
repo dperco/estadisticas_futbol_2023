@@ -2,11 +2,12 @@
 #############################################################
 
 ####  devuleve los nombres de todos los jugadores de un equipo
+###  se debe colocar el nombre del equipo 
 DELIMITER $$
 
-CREATE PROCEDURE ObtenerJugadoresPorEquipo(IN nombreEquipo VARCHAR(255))
+CREATE PROCEDURE ObtenerJugadoresPorEquipo(IN nombreEquipo VARCHAR(100))
 BEGIN
-    SELECT name,lastname
+    SELECT name,last_name
     FROM datos_de_jugadores
     WHERE Current_club = nombreEquipo;
 END;
@@ -15,28 +16,10 @@ $$
 DELIMITER ;
 
 
-#####  uscar todos los equipos que jugaron un dia determinado 
-
-DELIMITER $$
-
-CREATE PROCEDURE EquiposQueJugaronEnFecha(IN fechaConsulta DATE)
-BEGIN
-    SELECT DISTINCT home_team_name AS equipo
-    FROM datos_partidos
-    WHERE DATE(STR_TO_DATE(date_GMT, '%M %d %Y - %l:%i%p')) = fechaConsulta
-    UNION
-    SELECT DISTINCT away_team_name AS equipo
-    FROM datos_partidos
-    WHERE DATE(STR_TO_DATE(date_GMT, '%M %d %Y - %l:%i%p')) = fechaConsulta;
-END;
-$$
-
-DELIMITER ;
 
 
 ####  procedur con sql dinamico 
-###argentina_campeonato_masc_player_2023  argentina_campeonato_masc_matches_2023
-
+###  SE DEBE  insertar una columna  y el valor/condicion  para buscar en esa columna
 
 DELIMITER $$
 
@@ -62,12 +45,11 @@ $$
 DELIMITER ;
 
 
-####  buscar los equipos con promedio de tiempo en   convertir goles  mayor a 50 minutos 
-###   y saber el pormedio de edad de su equipo
-
+####  Nos devuelve  el promedio de edad de los equipos ,segun el promedio de gol que ingresemos
+###   con consulta dinamica 
 DELIMITER $$
 
-CREATE PROCEDURE EquiposConPromedioMinutosPorGol(IN minPromedio INT)
+CREATE PROCEDURE Promedio_edad_con_promedio_gol(IN minPromedio INT)
 BEGIN
     DECLARE sqlConsulta TEXT;
     SET @minPromedio = minPromedio; -- Asigna el valor del parámetro a una variable
@@ -87,19 +69,17 @@ BEGIN
                 FROM datos_partidos
             ) subquery
             WHERE equipo IN (
-                SELECT home_team_name AS equipo
-                FROM datos_equipos
-                GROUP BY home_team_name
-                HAVING AVG(minutes_per_goal_scored_overall) > ', @minPromedio, '
-                UNION
-                SELECT away_team_name AS equipo
-                FROM datos_equipos
-                GROUP BY away_team_name
-                HAVING AVG(minutes_per_goal_scored_overall) > ', @minPromedio, '
+                SELECT equipo
+                FROM (
+                    SELECT common_name AS equipo, AVG(prom_goles_x_min_conv) AS promedio_goles_por_minuto
+                    FROM estadisticas_de_equipos
+                    GROUP BY common_name
+                ) AS sub
+                WHERE promedio_goles_por_minuto > ', @minPromedio, '
             )
         )
         GROUP BY t.common_name
-        HAVING AVG(p.age) IS NOT NULL' -- Para evitar divisiones por cero
+        HAVING AVG(p.age) IS NOT NULL'
     );
 
     -- Prepara la consulta SQL
@@ -114,5 +94,3 @@ END;
 $$
 
 DELIMITER ;
-
- 
